@@ -2,7 +2,6 @@ import os
 import zipfile
 import kaggle
 import logging
-import datetime
 
 def extract_data() -> str:
     try:
@@ -15,12 +14,12 @@ def extract_data() -> str:
         os.makedirs(raw_dir, exist_ok=True)
 
         # Caminho do zip dentro da pasta raw
-        zip_file = os.path.join(raw_dir, "ibm-hr-analytics-attrition-dataset.zip")
+        zip_file = os.path.join(raw_dir, "animal-data.zip")
 
         # Faz o download se ainda não existir
         if not os.path.exists(zip_file):
             kaggle.api.dataset_download_files(
-                "pavansubhasht/ibm-hr-analytics-attrition-dataset",
+                "jinbonnie/animal-data",
                 path=raw_dir,
                 unzip=False
             )
@@ -30,12 +29,10 @@ def extract_data() -> str:
             zip_ref.extractall(raw_dir)
 
         # Lê o CSV extraído
-        csv_path = os.path.join(raw_dir, "WA_Fn-UseC_-HR-Employee-Attrition.csv")
-        bucket_key = f'extract/{datetime.date.today()}/extract.csv'
-        put_file_s3(csv_path, bucket_key, 'file', 'csv')
+        csv_path = os.path.join(raw_dir, "animal-data.csv")
 
         logging.info("Extração concluída com sucesso.")
-        return bucket_key
+        return csv_path
 
     except Exception as e:
         logging.error(f"Erro ao extrair dados: {e}")

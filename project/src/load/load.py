@@ -3,8 +3,6 @@ import pandas as pd
 import logging
 import datetime
 from sqlalchemy import create_engine
-from src.utils.aws_utils import get_object_s3, put_df_s3
-
 
 def save_to_mysql(df: pd.DataFrame, table_name:str) -> None:
     try:
@@ -15,7 +13,6 @@ def save_to_mysql(df: pd.DataFrame, table_name:str) -> None:
         db = os.getenv("MYSQL_DATABASE")
 
         engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}")
-
         df.to_sql(name=table_name, con=engine, if_exists="replace", index=False)
         logging.info("Tabela salva no MySQL.")
 
@@ -76,23 +73,24 @@ def save_to_csv(df: pd.DataFrame, output_dir: str, file_name: str) -> None:
         raise
 
 
-def save_to_s3(domain_dict:dict[str,pd.DataFrame]):
-    for name, df in domain_dict.items():
-        put_df_s3(
-            df,
-            f"load/{datetime.date.today()}/{name}.parquet",
-            'parquet')
-
 def load_data() -> None:
-    domain_parquet_names = [ "dados_performance","dados_pessoais","dados_profissionais"]
-    dict_domains={}
+    domain_names = [
+        "dados_performance",
+        "dados_pessoais",
+        "dados_profissionais"
+    ]
 
-    for name in domain_parquet_names:
-        df = get_object_s3(f'transform/{datetime.date.today()}/{name}.parquet', 'parquet')
-        dict_domains[name] = df
+    base_transform_dir = os.path.join("data", "transform")
 
-    save_to_s3(dict_domains)
-    for name, df in dict_domains.items():
-        save_to_csv(df, "data/output/csv/", name)
-        save_to_parquet(df, "data/output/parquet/", name)
-        save_to_mysql(df,name)
+    for name in domain_names:
+        parquet_path = os.path.join(base_transform_dir, f"{name}.parquet")
+
+        if not os.path.exists(parquet_path):
+            logging.warning(f"Arquivo não encontrado: {parquet_path}")
+            continue
+
+        df = pd.read_parquet(parquet_path)
+
+        save_to_csv(df, "data/output/csv", name)
+        save_to_parquet(df, "data/output/parquet", name)
+        save_to_mysql(df, name)

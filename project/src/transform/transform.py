@@ -3,7 +3,6 @@ import logging
 import re
 import os
 import datetime
-from src.utils.aws_utils import put_file_s3, get_object_s3, put_df_s3
 
 def rename_columns_snake_case(df: pd.DataFrame) -> pd.DataFrame:
     try:
@@ -20,41 +19,29 @@ def rename_columns_snake_case(df: pd.DataFrame) -> pd.DataFrame:
 def rename_columns_ptbr(dict_df: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
     try:
         col_map = {
-            "age": "idade",
-            "attrition": "desligado",
-            "business_travel": "viagem_a_trabalho",
-            "department": "departamento",
-            "distance_from_home": "distancia_de_casa",
-            "education": "escolaridade",
-            "education_field": "area_de_formacao",
-            "environment_satisfaction": "satisfacao_com_ambiente",
-            "gender": "genero",
-            "job_involvement": "engajamento_no_trabalho",
-            "job_level": "nivel_do_cargo",
-            "job_role": "cargo",
-            "job_satisfaction": "satisfacao_no_trabalho",
-            "marital_status": "estado_civil",
-            "monthly_income": "renda_mensal",
-            "num_companies_worked": "num_empregos_anteriores",
-            "over_time": "horas_extras",
-            "percent_salary_hike": "aumento_percentual_salario",
-            "performance_rating": "avaliacao_de_desempenho",
-            "relationship_satisfaction": "satisfacao_com_relacoes",
-            "stock_option_level": "nivel_de_opcao_de_acoes",
-            "total_working_years": "total_anos_experiencia",
-            "training_times_last_year": "treinamentos_ultimo_ano",
-            "work_life_balance": "equilibrio_vida_trabalho",
-            "years_at_company": "anos_na_empresa",
-            "years_in_current_role": "anos_no_cargo_atual",
-            "years_since_last_promotion": "anos_desde_ultima_promocao",
-            "years_with_curr_manager": "anos_com_mesmo_gerente",
-            "employee_count": "quantidade_funcionarios",
-            "over18": "maior_de_18_anos",
-            "standard_hours": "carga_horaria_padrao",
-            "employee_number": "numero_funcionario",
-            "daily_rate": "remuneracao_diaria",
-            "hourly_rate": "remuneracao_por_hora",
-            "monthly_rate": "remuneracao_mensal"
+            "id": "id_animal",
+            "intakedate": "data_entrada",
+            "intakereason": "motivo_entrada",
+            "istransfer": "transferencia",
+            "sheltercode": "codigo_abrigo",
+            "identichipnumber": "numero_microchip",
+            "animalname": "nome_animal",
+            "breedname": "raca",
+            "basecolour": "cor_base",
+            "speciesname": "especie",
+            "animalage": "idade_animal",
+            "sexname": "sexo",
+            "location": "localizacao",
+            "movementdate": "data_movimentacao",
+            "movementtype": "tipo_movimentacao",
+            "istrial": "adocao_teste",
+            "returndate": "data_retorno",
+            "returnedreason": "motivo_retorno",
+            "deceaseddate": "data_obito",
+            "deceasedreason": "motivo_obito",
+            "diedoffshelter": "morreu_fora_do_abrigo",
+            "puttosleep": "eutanasiado",
+            "isdoa": "morto_ao_chegar"
         }
 
         for key, df in dict_df.items():
@@ -66,67 +53,250 @@ def rename_columns_ptbr(dict_df: dict[str, pd.DataFrame]) -> dict[str, pd.DataFr
 
     return dict_df
 
-def convert_to_binary(df: pd.DataFrame, col_name:str, is_abbreviated:bool) -> pd.DataFrame:
-    try:
-        if col_name not in df.columns:
-            raise KeyError(f"Coluna {col_name} não encontrada no DataFrame.")
-
-        if is_abbreviated:
-            df[col_name] = df[col_name].map({"Y": 1, "N": 0})
-        else:
-            df[col_name] = df[col_name].map({"Yes": 1, "No": 0})
-
-        if df[col_name].isnull().any():
-            logging.warning(f"Valores desconhecidos encontrados na coluna {col_name}.")
-
-        return df
-
-    except Exception as e:
-        logging.error(f"Erro ao converter 'attrition' para binário: {e}")
-        return df
-
-
 def translate_categorical_columns(df) -> pd.DataFrame:
     try:
         translations = {
-            "business_travel": {
-                "Non-Travel": "Não viaja",
-                "Travel_Frequently": "Viaja frequentemente",
-                "Travel_Rarely": "Viaja raramente"
+            "intakereason": {
+                "Abandoned": "Abandonado",
+                "Abuse/ neglect": "Abuso / Negligência",
+                "Allergies": "Alergias",
+                "Behavioral Issues": "Problemas Comportamentais",
+                "Biting": "Mordedura",
+                "Born in Shelter": "Nascido no Abrigo",
+                "DOA": "Morto ao Chegar",
+                "Incompatible with other pets": "Incompatível com Outros Animais",
+                "Incompatible with owner lifestyle": "Incompatível com Estilo de Vida do Tutor",
+                "Injured Wildlife": "Animal Silvestre Ferido",
+                "Landlord issues": "Problemas com Proprietário do Imóvel",
+                "Litter relinquishment": "Entrega de Ninhada",
+                "Marriage/Relationship split": "Separação / Divórcio",
+                "Moving": "Mudança",
+                "Owner Deceased": "Tutor Falecido",
+                "Owner Died": "Tutor Faleceu",
+                "Owner requested Euthanasia": "Eutanásia Solicitada pelo Tutor",
+                "Police Assist": "Apoio Policial",
+                "Rabies Monitoring": "Monitoramento de Raiva",
+                "Sick/Injured": "Doente / Ferido",
+                "Stray": "Animal Errante",
+                "TNR - Trap/Neuter/Release": "Captura / Castração / Soltura (TNR)",
+                "Transfer from Other Shelter": "Transferência de Outro Abrigo",
+                "Unable to Afford": "Incapacidade Financeira",
+                "Unsuitable Accommodation": "Moradia Inadequada"
             },
-            "department": {
-                "Human Resources": "Recursos Humanos",
-                "Research & Development": "Pesquisa e Desenvolvimento",
-                "Sales": "Vendas"
+
+            "basecolour": {
+                "Apricot": "Damasco",
+                "Black": "Preto",
+                "Black Tortie": "Preto Tartaruga",
+                "Black and Brindle": "Preto e Tigrado",
+                "Black and Brown": "Preto e Marrom",
+                "Black and Tan": "Preto e Castanho",
+                "Black and White": "Preto e Branco",
+                "Black and grey": "Preto e Cinza",
+                "Black merle": "Preto Merle",
+                "Black, Brown and White": "Preto, Marrom e Branco",
+                "Blue": "Azul",
+                "Blue Point": "Azul Point",
+                "Blue merle": "Azul Merle",
+                "Brindle": "Tigrado",
+                "Brindle and Black": "Tigrado e Preto",
+                "Brindle and White": "Tigrado e Branco",
+                "Brown": "Marrom",
+                "Brown and Black": "Marrom e Preto",
+                "Brown and White": "Marrom e Branco",
+                "Brown, Black and White": "Marrom, Preto e Branco",
+                "Buff": "Bege",
+                "Buff and white": "Bege e Branco",
+                "Calico": "Cálico",
+                "Chocolate": "Chocolate",
+                "Chocolate Point": "Chocolate Point",
+                "Cinnamon": "Canela",
+                "Cream": "Creme",
+                "Dilute calico": "Cálico Dilúido",
+                "Dilute tortoiseshell": "Tartaruga Dilúida",
+                "Fawn": "Fulvo",
+                "Flame Point": "Flame Point",
+                "Golden": "Dourado",
+                "Green": "Verde",
+                "Grey": "Cinza",
+                "Grey Black and White": "Cinza, Preto e Branco",
+                "Grey and White": "Cinza e Branco",
+                "Grey and black": "Cinza e Preto",
+                "Lilac": "Lilás",
+                "Lilac Point": "Lilás Point",
+                "Liver": "Fígado",
+                "Liver and White": "Fígado e Branco",
+                "Lynx point": "Lynx Point",
+                "Orange": "Laranja",
+                "Orange and White": "Laranja e Branco",
+                "Red": "Vermelho",
+                "Red and Black": "Vermelho e Preto",
+                "Red and White": "Vermelho e Branco",
+                "Red merle": "Vermelho Merle",
+                "Ruddy": "Ruddy",
+                "Seal": "Seal",
+                "Seal Point": "Seal Point",
+                "Silver": "Prata",
+                "Siver and Black": "Prata e Preto",
+                "Siver and Tan": "Prata e Castanho",
+                "Smoke": "Fumê",
+                "Tabbico": "Tabbico",
+                "Tabby": "Rajado",
+                "Tabby and White": "Rajado e Branco",
+                "Tan": "Castanho",
+                "Tan and Black": "Castanho e Preto",
+                "Tan and Brown": "Castanho e Marrom",
+                "Tan and White": "Castanho e Branco",
+                "Torbie": "Torbie",
+                "Tortie": "Tartaruga",
+                "Tortie Point": "Tartaruga Point",
+                "Tortie and White": "Tartaruga e Branco",
+                "Tricolour": "Tricolor",
+                "Various": "Variado",
+                "White": "Branco",
+                "White and Black": "Branco e Preto",
+                "White and Brindle": "Branco e Tigrado",
+                "White and Brown": "Branco e Marrom",
+                "White and Grey": "Branco e Cinza",
+                "White and Liver": "Branco e Fígado",
+                "White and Orange": "Branco e Laranja",
+                "White and Tabby": "Branco e Rajado",
+                "White and Tan": "Branco e Castanho",
+                "Yellow": "Amarelo"
             },
-            "education_field": {
-                "Human Resources": "Recursos Humanos",
-                "Life Sciences": "Ciências Biológicas",
-                "Marketing": "Marketing",
-                "Medical": "Medicina",
-                "Other": "Outros",
-                "Technical Degree": "Área Técnica"
+
+            "speciesname": {
+                "Bird": "Ave",
+                "Cat": "Gato",
+                "Chicken": "Galinha",
+                "Chinchilla": "Chinchila",
+                "Dog": "Cachorro",
+                "Ferret": "Furão",
+                "Fish": "Peixe",
+                "Gerbil": "Gerbil",
+                "Goat": "Cabra",
+                "Guinea Pig": "Porquinho-da-Índia",
+                "Hamster": "Hamster",
+                "Hedgehog": "Ouriço",
+                "House Rabbit": "Coelho Doméstico",
+                "Livestock": "Animal de Fazenda",
+                "Lizard": "Lagarto",
+                "Mouse": "Camundongo",
+                "Opossum": "Gambá",
+                "Pig": "Porco",
+                "Raccoon": "Guaxinim",
+                "Rat": "Rato",
+                "Snake": "Cobra",
+                "Squirrel": "Esquilo",
+                "Sugar Glider": "Petauro-do-açúcar",
+                "Tarantula": "Tarântula",
+                "Tortoise": "Tartaruga Terrestre",
+                "Turtle": "Tartaruga",
+                "Wildlife": "Animal Silvestre"
             },
-            "gender": {
-                "Male": "Masculino",
-                "Female": "Feminino"
+
+            "sexname": {
+                "Male": "Macho",
+                "Female": "Fêmea",
+                "Unknown": "Desconhecido",
             },
-            "job_role": {
-                "Healthcare Representative": "Representante de Saúde",
-                "Human Resources": "Recursos Humanos",
-                "Laboratory Technician": "Técnico de Laboratório",
-                "Manager": "Gerente",
-                "Manufacturing Director": "Diretor de Produção",
-                "Research Director": "Diretor de Pesquisa",
-                "Research Scientist": "Cientista de Pesquisa",
-                "Sales Executive": "Executivo de Vendas",
-                "Sales Representative": "Representante de Vendas"
+
+            "location": {
+                "Adoptable Cat Big Colony": "Gatos Adotáveis, Colônia Grande",
+                "Adoptable Cat Glass Colony": "Gatos Adotáveis, Colônia de Vidro",
+                "Adoptable Cat Kennels": "Gatos Adotáveis, Canis",
+                "Adoptable Cat Middle Colony": "Gatos Adotáveis, Colônia Média",
+                "Adoptable Cat Small Colony": "Gatos Adotáveis, Colônia Pequena",
+                "Adoptable Dogs": "Cães Adotáveis",
+                "Adoptable window colony": "Colônia Adotável, Janela",
+                "Canine intake room": "Sala de Entrada, Cães",
+                "Cat Iso": "Isolamento, Gatos",
+                "Cat obs": "Observação, Gatos",
+                "Cat room A": "Sala de Gatos A",
+                "Cat room B": "Sala de Gatos B",
+                "Cat room C": "Sala de Gatos C",
+                "Check-in": "Check-in",
+                "Clinic room": "Sala da Clínica",
+                "Dog room A": "Sala de Cães A",
+                "Dog room B": "Sala de Cães B",
+                "Dog room C": "Sala de Cães C",
+                "Dog room D": "Sala de Cães D",
+                "Dog room Isolation": "Isolamento, Cães",
+                "Feline Nursery": "Berçário, Felinos",
+                "Feline intake room": "Sala de Entrada, Felinos",
+                "Food prep room": "Sala de Preparação de Alimentos",
+                "Foster": "Lar Temporário",
+                "Incinerator": "Incinerador",
+                "Lobby": "Recepção",
+                "MCHA-offices shelter cat": "MCHA, Escritórios, Gatos do Abrigo",
+                "Office": "Escritório",
+                "Petsmart": "PetSmart",
+                "Shelter": "Abrigo",
+                "Small Animal room": "Sala de Pequenos Animais",
+                "Special Care Cats": "Cuidados Especiais, Gatos",
+                "Special Care Dogs": "Cuidados Especiais, Cães",
+                "Stray Cats": "Gatos Errantes",
+                "Stray Dogs Alpha": "Cães Errantes, Alfa",
+                "Stray Dogs Beta": "Cães Errantes, Beta",
+                "Stray Dogs Theta": "Cães Errantes, Theta",
+                "Stray side Men`s restroom-Use for small animal holding-non-adoptable": "Lado Stray, Banheiro Masculino, Área de Contenção de Pequenos Animais, Não Adotáveis",
+                "Veterinary office": "Consultório Veterinário"
             },
-            "marital_status": {
-                "Divorced": "Divorciado",
-                "Married": "Casado",
-                "Single": "Solteiro"
-            }
+
+            "movementtype": {
+                "Adoption": "Adoção",
+                "Escaped": "Fuga",
+                "Foster": "Lar Temporário",
+                "Reclaimed": "Recuperado pelo Tutor",
+                "Released To Wild": "Solto na Natureza",
+                "Stolen": "Furto",
+                "Transfer": "Transferência"
+            },
+
+            "returnedreason": {
+                "Abandoned": "Abandonado",
+                "Abuse/ neglect": "Abuso / Negligência",
+                "Allergies": "Alergias",
+                "Behavioral Issues": "Problemas Comportamentais",
+                "Biting": "Mordedura",
+                "DOA": "Morto ao Chegar",
+                "Incompatible with other pets": "Incompatível com Outros Animais",
+                "Incompatible with owner lifestyle": "Incompatível com Estilo de Vida do Tutor",
+                "Landlord issues": "Problemas com Proprietário",
+                "Marriage/Relationship split": "Separação / Divórcio",
+                "Moving": "Mudança",
+                "Owner Deceased": "Tutor Falecido",
+                "Owner requested Euthanasia": "Eutanásia Solicitada pelo Tutor",
+                "Police Assist": "Apoio Policial",
+                "Rabies Monitoring": "Monitoramento de Raiva",
+                "Return Adopt - Animal Health": "Retorno Pós-Adoção - Saúde",
+                "Return Adopt - Behavior": "Retorno Pós-Adoção - Comportamento",
+                "Return Adopt - Other": "Retorno Pós-Adoção - Outros",
+                "Return adopt - lifestyle issue": "Retorno Pós-Adoção - Estilo de Vida",
+                "Sick/Injured": "Doente / Ferido",
+                "Stray": "Animal Errante",
+                "Transfer from Other Shelter": "Transferência de Outro Abrigo",
+                "Unable to Afford": "Incapacidade Financeira",
+                "Unsuitable Accommodation": "Moradia Inadequada"
+            },
+
+            "deceasedreason": {
+                "Biting": "Mordida",
+                "Court Order/ Legal": "Ordem Judicial / Determinação Legal",
+                "Dead On Arrival": "Morto ao Chegar",
+                "Died in care": "Falecimento sob Cuidados",
+                "Died in community": "Falecimento na Comunidade",
+                "Healthy": "Saudável",
+                "Medical": "Motivo Médico",
+                "Owner Requested": "Solicitação do Tutor",
+                "Sick/Injured": "Doente / Ferido",
+                "TM - Treatable Manageable": "Tratável e Gerenciável",
+                "Temperament/Behavior": "Temperamento / Comportamento",
+                "UU - untreatable, unmanageable": "Intratável / Ingerenciável",
+                "Vet advised euthanasia": "Eutanásia Recomendada pelo Veterinário"
+            },
+
+
         }
 
         for col, mapping in translations.items():
@@ -145,72 +315,55 @@ def translate_categorical_columns(df) -> pd.DataFrame:
 def extract_domain_dataframes(df: pd.DataFrame) -> dict[str, pd.DataFrame]:
 
     try:
-        dados_pessoais = [
-                "employee_number",
-                "age",
-                "gender",
-                "marital_status",
-                "distance_from_home",
-                "education",
-                "education_field",
-            ]
+        animal_base = [
+            "id",
+            "identichipnumber",
+            "animalname",
+            "speciesname",
+            "breedname",
+            "basecolour",
+            "sexname",
+            "animalage"
+        ]
 
-        dados_profissionais = [
-                "employee_number",
-                "department",
-                "job_role",
-                "job_level",
-                "business_travel",
-                "over_time",
-                "num_companies_worked",
-                "total_working_years",
-                "years_at_company",
-                "years_in_current_role",
-                "years_since_last_promotion",
-                "years_with_curr_manager",
-                "attrition",
-                "performance_rating",
-                "percent_salary_hike",
-                "training_times_last_year"
-            ]
+        fluxo = [
+            "id",
+            "intakedate",
+            "intakereason",
+            "istransfer",
+            "sheltercode",
+            "location",
+            "movementdate",
+            "movementtype",
+            "istrial",
+            "returndate",
+            "returnedreason"
+        ]
 
-        dados_performance = [
-                "employee_number",
-                "job_satisfaction",
-                "environment_satisfaction",
-                "relationship_satisfaction",
-                "work_life_balance",
-                "job_involvement",
-                "monthly_income",
-                "daily_rate",
-                "hourly_rate",
-                "monthly_rate",
-                "standard_hours",
-                "stock_option_level"
-            ]
+        desfecho = [
+            "id",
+            "deceaseddate",
+            "deceasedreason",
+            "diedoffshelter",
+            "puttosleep",
+            "isdoa"
+        ]
 
-        personal_df = df[dados_pessoais].copy()
-        work_df = df[dados_profissionais].copy()
-        performance_df = df[dados_performance].copy()
+        base_df = df[[c for c in animal_base if c in df.columns]].copy()
+        fluxo_df = df[[c for c in fluxo if c in df.columns]].copy()
+        desfecho_df = df[[c for c in desfecho if c in df.columns]].copy()
 
-        logging.info("Domain DataFrames extracted successfully.")
+        logging.info("Animal domain DataFrames extracted successfully.")
+
         return {
-            "dados_pessoais": personal_df,
-            "dados_profissionais": work_df,
-            "dados_performance": performance_df
+            "animal_base": base_df,
+            "fluxo": fluxo_df,
+            "desfecho": desfecho_df
         }
 
-    except KeyError as e:
-        logging.error(f"Missing column(s) during domain extraction: {e}")
     except Exception as e:
-        logging.error(f"Unexpected error during domain extraction: {e}")
-
-    return {}
-
-def convert_columns_to_binary(df: pd.DataFrame) -> pd.DataFrame:
-    df = convert_to_binary(df, "attrition", False)
-    df = convert_to_binary(df, "over_time", False)
-    return df
+        logging.error(f"Unexpected error during animal domain extraction: {e}")
+        return {}
 
 def transform_data(key: str) -> dict[str, pd.DataFrame]:
 
@@ -219,7 +372,6 @@ def transform_data(key: str) -> dict[str, pd.DataFrame]:
 
         df = get_object_s3(key, "csv")
         df = rename_columns_snake_case(df)
-        df = convert_columns_to_binary(df)
         df = translate_categorical_columns(df)
         dict_df_domains = extract_domain_dataframes(df)
         dict_df_domains = rename_columns_ptbr(dict_df_domains)
