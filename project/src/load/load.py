@@ -75,9 +75,9 @@ def save_to_csv(df: pd.DataFrame, output_dir: str, file_name: str) -> None:
 
 def load_data() -> None:
     domain_names = [
-        "dados_performance",
-        "dados_pessoais",
-        "dados_profissionais"
+        "animal_base",
+        "fluxo",
+        "desfecho"
     ]
 
     base_transform_dir = os.path.join("data", "transform")

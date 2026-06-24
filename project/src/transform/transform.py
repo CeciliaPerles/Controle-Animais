@@ -58,28 +58,28 @@ def translate_categorical_columns(df) -> pd.DataFrame:
         translations = {
             "intakereason": {
                 "Abandoned": "Abandonado",
-                "Abuse/ neglect": "Abuso / Negligência",
+                "Abuse/ neglect": "Abuso / Negligencia",
                 "Allergies": "Alergias",
                 "Behavioral Issues": "Problemas Comportamentais",
                 "Biting": "Mordedura",
                 "Born in Shelter": "Nascido no Abrigo",
                 "DOA": "Morto ao Chegar",
-                "Incompatible with other pets": "Incompatível com Outros Animais",
-                "Incompatible with owner lifestyle": "Incompatível com Estilo de Vida do Tutor",
+                "Incompatible with other pets": "Incompativel com Outros Animais",
+                "Incompatible with owner lifestyle": "Incompativel com Estilo de Vida do Tutor",
                 "Injured Wildlife": "Animal Silvestre Ferido",
-                "Landlord issues": "Problemas com Proprietário do Imóvel",
+                "Landlord issues": "Problemas com Proprietario do Imovel",
                 "Litter relinquishment": "Entrega de Ninhada",
-                "Marriage/Relationship split": "Separação / Divórcio",
+                "Marriage/Relationship split": "Separacao / Divorcio",
                 "Moving": "Mudança",
                 "Owner Deceased": "Tutor Falecido",
                 "Owner Died": "Tutor Faleceu",
-                "Owner requested Euthanasia": "Eutanásia Solicitada pelo Tutor",
+                "Owner requested Euthanasia": "Eutanasia Solicitada pelo Tutor",
                 "Police Assist": "Apoio Policial",
                 "Rabies Monitoring": "Monitoramento de Raiva",
                 "Sick/Injured": "Doente / Ferido",
                 "Stray": "Animal Errante",
-                "TNR - Trap/Neuter/Release": "Captura / Castração / Soltura (TNR)",
-                "Transfer from Other Shelter": "Transferência de Outro Abrigo",
+                "TNR - Trap/Neuter/Release": "Captura / Castracao / Soltura (TNR)",
+                "Transfer from Other Shelter": "Transferencia de Outro Abrigo",
                 "Unable to Afford": "Incapacidade Financeira",
                 "Unsuitable Accommodation": "Moradia Inadequada"
             },
@@ -112,8 +112,8 @@ def translate_categorical_columns(df) -> pd.DataFrame:
                 "Chocolate Point": "Chocolate Point",
                 "Cinnamon": "Canela",
                 "Cream": "Creme",
-                "Dilute calico": "Cálico Dilúido",
-                "Dilute tortoiseshell": "Tartaruga Dilúida",
+                "Dilute calico": "Calico Diluido",
+                "Dilute tortoiseshell": "Tartaruga Diluida",
                 "Fawn": "Fulvo",
                 "Flame Point": "Flame Point",
                 "Golden": "Dourado",
@@ -122,10 +122,10 @@ def translate_categorical_columns(df) -> pd.DataFrame:
                 "Grey Black and White": "Cinza, Preto e Branco",
                 "Grey and White": "Cinza e Branco",
                 "Grey and black": "Cinza e Preto",
-                "Lilac": "Lilás",
-                "Lilac Point": "Lilás Point",
-                "Liver": "Fígado",
-                "Liver and White": "Fígado e Branco",
+                "Lilac": "Lilas",
+                "Lilac Point": "Lilas Point",
+                "Liver": "Marrom Figado",
+                "Liver and White": "Figado e Branco",
                 "Lynx point": "Lynx Point",
                 "Orange": "Laranja",
                 "Orange and White": "Laranja e Branco",
@@ -139,7 +139,7 @@ def translate_categorical_columns(df) -> pd.DataFrame:
                 "Silver": "Prata",
                 "Siver and Black": "Prata e Preto",
                 "Siver and Tan": "Prata e Castanho",
-                "Smoke": "Fumê",
+                "Smoke": "Fume",
                 "Tabbico": "Tabbico",
                 "Tabby": "Rajado",
                 "Tabby and White": "Rajado e Branco",
@@ -171,25 +171,25 @@ def translate_categorical_columns(df) -> pd.DataFrame:
                 "Chicken": "Galinha",
                 "Chinchilla": "Chinchila",
                 "Dog": "Cachorro",
-                "Ferret": "Furão",
+                "Ferret": "Furao",
                 "Fish": "Peixe",
                 "Gerbil": "Gerbil",
                 "Goat": "Cabra",
-                "Guinea Pig": "Porquinho-da-Índia",
+                "Guinea Pig": "Porquinho-da-India",
                 "Hamster": "Hamster",
-                "Hedgehog": "Ouriço",
-                "House Rabbit": "Coelho Doméstico",
+                "Hedgehog": "Ourico",
+                "House Rabbit": "Coelho Domestico",
                 "Livestock": "Animal de Fazenda",
                 "Lizard": "Lagarto",
                 "Mouse": "Camundongo",
-                "Opossum": "Gambá",
+                "Opossum": "Gamba",
                 "Pig": "Porco",
                 "Raccoon": "Guaxinim",
                 "Rat": "Rato",
                 "Snake": "Cobra",
                 "Squirrel": "Esquilo",
-                "Sugar Glider": "Petauro-do-açúcar",
-                "Tarantula": "Tarântula",
+                "Sugar Glider": "Petauro-do-acucar",
+                "Tarantula": "Tarantula",
                 "Tortoise": "Tartaruga Terrestre",
                 "Turtle": "Tartaruga",
                 "Wildlife": "Animal Silvestre"
@@ -197,103 +197,103 @@ def translate_categorical_columns(df) -> pd.DataFrame:
 
             "sexname": {
                 "Male": "Macho",
-                "Female": "Fêmea",
+                "Female": "Femea",
                 "Unknown": "Desconhecido",
             },
 
             "location": {
-                "Adoptable Cat Big Colony": "Gatos Adotáveis, Colônia Grande",
-                "Adoptable Cat Glass Colony": "Gatos Adotáveis, Colônia de Vidro",
-                "Adoptable Cat Kennels": "Gatos Adotáveis, Canis",
-                "Adoptable Cat Middle Colony": "Gatos Adotáveis, Colônia Média",
-                "Adoptable Cat Small Colony": "Gatos Adotáveis, Colônia Pequena",
-                "Adoptable Dogs": "Cães Adotáveis",
-                "Adoptable window colony": "Colônia Adotável, Janela",
-                "Canine intake room": "Sala de Entrada, Cães",
+                "Adoptable Cat Big Colony": "Gatos Adotaveis, Colonia Grande",
+                "Adoptable Cat Glass Colony": "Gatos Adotaveis, Colonia de Vidro",
+                "Adoptable Cat Kennels": "Gatos Adotaveis, Canis",
+                "Adoptable Cat Middle Colony": "Gatos Adotaveis, Colonia Média",
+                "Adoptable Cat Small Colony": "Gatos Adotaveis, Colonia Pequena",
+                "Adoptable Dogs": "Cães Adotaveis",
+                "Adoptable window colony": "Colonia Adotavel, Janela",
+                "Canine intake room": "Sala de Entrada, Caes",
                 "Cat Iso": "Isolamento, Gatos",
-                "Cat obs": "Observação, Gatos",
+                "Cat obs": "Observacao, Gatos",
                 "Cat room A": "Sala de Gatos A",
                 "Cat room B": "Sala de Gatos B",
                 "Cat room C": "Sala de Gatos C",
                 "Check-in": "Check-in",
-                "Clinic room": "Sala da Clínica",
-                "Dog room A": "Sala de Cães A",
-                "Dog room B": "Sala de Cães B",
-                "Dog room C": "Sala de Cães C",
-                "Dog room D": "Sala de Cães D",
-                "Dog room Isolation": "Isolamento, Cães",
-                "Feline Nursery": "Berçário, Felinos",
+                "Clinic room": "Sala da Clinica",
+                "Dog room A": "Sala de Caes A",
+                "Dog room B": "Sala de Caes B",
+                "Dog room C": "Sala de Caes C",
+                "Dog room D": "Sala de Caes D",
+                "Dog room Isolation": "Isolamento, Caes",
+                "Feline Nursery": "Bercario, Felinos",
                 "Feline intake room": "Sala de Entrada, Felinos",
-                "Food prep room": "Sala de Preparação de Alimentos",
-                "Foster": "Lar Temporário",
+                "Food prep room": "Sala de Preparacao de Alimentos",
+                "Foster": "Lar Temporario",
                 "Incinerator": "Incinerador",
-                "Lobby": "Recepção",
-                "MCHA-offices shelter cat": "MCHA, Escritórios, Gatos do Abrigo",
-                "Office": "Escritório",
+                "Lobby": "Recepcao",
+                "MCHA-offices shelter cat": "MCHA, Escritorios, Gatos do Abrigo",
+                "Office": "Escritorio",
                 "Petsmart": "PetSmart",
                 "Shelter": "Abrigo",
                 "Small Animal room": "Sala de Pequenos Animais",
                 "Special Care Cats": "Cuidados Especiais, Gatos",
-                "Special Care Dogs": "Cuidados Especiais, Cães",
+                "Special Care Dogs": "Cuidados Especiais, Caes",
                 "Stray Cats": "Gatos Errantes",
-                "Stray Dogs Alpha": "Cães Errantes, Alfa",
-                "Stray Dogs Beta": "Cães Errantes, Beta",
-                "Stray Dogs Theta": "Cães Errantes, Theta",
-                "Stray side Men`s restroom-Use for small animal holding-non-adoptable": "Lado Stray, Banheiro Masculino, Área de Contenção de Pequenos Animais, Não Adotáveis",
-                "Veterinary office": "Consultório Veterinário"
+                "Stray Dogs Alpha": "Caes Errantes, Alfa",
+                "Stray Dogs Beta": "Caes Errantes, Beta",
+                "Stray Dogs Theta": "Caes Errantes, Theta",
+                "Stray side Men`s restroom-Use for small animal holding-non-adoptable": "Banheiro Masculino, Area de Contencao de Pequenos Animais, Nao Adotaveis",
+                "Veterinary office": "Consultorio Veterinario"
             },
 
             "movementtype": {
-                "Adoption": "Adoção",
+                "Adoption": "Adocao",
                 "Escaped": "Fuga",
-                "Foster": "Lar Temporário",
+                "Foster": "Lar Temporario",
                 "Reclaimed": "Recuperado pelo Tutor",
                 "Released To Wild": "Solto na Natureza",
                 "Stolen": "Furto",
-                "Transfer": "Transferência"
+                "Transfer": "Transferencia"
             },
 
             "returnedreason": {
                 "Abandoned": "Abandonado",
-                "Abuse/ neglect": "Abuso / Negligência",
+                "Abuse/ neglect": "Abuso / Negligencia",
                 "Allergies": "Alergias",
                 "Behavioral Issues": "Problemas Comportamentais",
-                "Biting": "Mordedura",
+                "Biting": "Mordida",
                 "DOA": "Morto ao Chegar",
-                "Incompatible with other pets": "Incompatível com Outros Animais",
-                "Incompatible with owner lifestyle": "Incompatível com Estilo de Vida do Tutor",
-                "Landlord issues": "Problemas com Proprietário",
-                "Marriage/Relationship split": "Separação / Divórcio",
+                "Incompatible with other pets": "Incompativel com Outros Animais",
+                "Incompatible with owner lifestyle": "Incompativel com Estilo de Vida do Tutor",
+                "Landlord issues": "Problemas com Proprietario",
+                "Marriage/Relationship split": "Separacao / Divorcio",
                 "Moving": "Mudança",
                 "Owner Deceased": "Tutor Falecido",
-                "Owner requested Euthanasia": "Eutanásia Solicitada pelo Tutor",
+                "Owner requested Euthanasia": "Eutanasia Solicitada pelo Tutor",
                 "Police Assist": "Apoio Policial",
                 "Rabies Monitoring": "Monitoramento de Raiva",
-                "Return Adopt - Animal Health": "Retorno Pós-Adoção - Saúde",
-                "Return Adopt - Behavior": "Retorno Pós-Adoção - Comportamento",
-                "Return Adopt - Other": "Retorno Pós-Adoção - Outros",
-                "Return adopt - lifestyle issue": "Retorno Pós-Adoção - Estilo de Vida",
+                "Return Adopt - Animal Health": "Retorno Pos-Adocao - Saude",
+                "Return Adopt - Behavior": "Retorno Pos-Adocao - Comportamento",
+                "Return Adopt - Other": "Retorno Pos-Adocao - Outros",
+                "Return adopt - lifestyle issue": "Retorno Pos-Adocao - Estilo de Vida",
                 "Sick/Injured": "Doente / Ferido",
                 "Stray": "Animal Errante",
-                "Transfer from Other Shelter": "Transferência de Outro Abrigo",
+                "Transfer from Other Shelter": "Transferencia de Outro Abrigo",
                 "Unable to Afford": "Incapacidade Financeira",
                 "Unsuitable Accommodation": "Moradia Inadequada"
             },
 
             "deceasedreason": {
                 "Biting": "Mordida",
-                "Court Order/ Legal": "Ordem Judicial / Determinação Legal",
+                "Court Order/ Legal": "Ordem Judicial / Determinacao Legal",
                 "Dead On Arrival": "Morto ao Chegar",
                 "Died in care": "Falecimento sob Cuidados",
                 "Died in community": "Falecimento na Comunidade",
-                "Healthy": "Saudável",
-                "Medical": "Motivo Médico",
-                "Owner Requested": "Solicitação do Tutor",
+                "Healthy": "Saudavel",
+                "Medical": "Motivo Medico",
+                "Owner Requested": "Solicitacao do Tutor",
                 "Sick/Injured": "Doente / Ferido",
-                "TM - Treatable Manageable": "Tratável e Gerenciável",
+                "TM - Treatable Manageable": "Tratavel e Gerenciavel",
                 "Temperament/Behavior": "Temperamento / Comportamento",
-                "UU - untreatable, unmanageable": "Intratável / Ingerenciável",
-                "Vet advised euthanasia": "Eutanásia Recomendada pelo Veterinário"
+                "UU - untreatable, unmanageable": "Intratavel / Ingerenciavel",
+                "Vet advised euthanasia": "Eutanasia Recomendada pelo Veterinario"
             },
 
 
@@ -301,7 +301,7 @@ def translate_categorical_columns(df) -> pd.DataFrame:
 
         for col, mapping in translations.items():
             if col in df.columns:
-                df[col] = df[col].map(mapping)
+                df[col] = df[col].map(mapping).fillna(df[col])
                 logging.info(f"Coluna '{col}' traduzida com sucesso.")
             else:
                 logging.warning(f"Coluna '{col}' não encontrada no DataFrame.")
@@ -311,6 +311,24 @@ def translate_categorical_columns(df) -> pd.DataFrame:
 
     return df
 
+def transform_animal_age(df: pd.DataFrame) -> pd.DataFrame:
+
+    def age_to_months(age_str):
+        if pd.isna(age_str):
+            return None
+        age_str = str(age_str).lower()
+
+        years = re.search(r'(\d+)\s+year', age_str)
+        months = re.search(r'(\d+)\s+month', age_str)
+
+        years = int(years.group(1)) if years else 0
+        months = int(months.group(1)) if months else 0
+
+        return years * 12 + months
+
+    df["animalage"] = df["animalage"].apply(age_to_months)
+
+    return df
 
 def extract_domain_dataframes(df: pd.DataFrame) -> dict[str, pd.DataFrame]:
 
@@ -362,7 +380,7 @@ def extract_domain_dataframes(df: pd.DataFrame) -> dict[str, pd.DataFrame]:
         }
 
     except Exception as e:
-        logging.error(f"Unexpected error during animal domain extraction: {e}")
+        logging.error(f"Erro inesperado durante extração do DF: {e}")
         return {}
 
 def transform_data(key: str) -> dict[str, pd.DataFrame]:
@@ -370,8 +388,9 @@ def transform_data(key: str) -> dict[str, pd.DataFrame]:
     try:
         logging.info("Iniciando transformações nos dados...")
 
-        df = get_object_s3(key, "csv")
+        df = pd.read_csv(key)  # ou "data/raw/animal-data-1.csv"
         df = rename_columns_snake_case(df)
+        df = transform_animal_age(df)
         df = translate_categorical_columns(df)
         dict_df_domains = extract_domain_dataframes(df)
         dict_df_domains = rename_columns_ptbr(dict_df_domains)
@@ -382,12 +401,6 @@ def transform_data(key: str) -> dict[str, pd.DataFrame]:
 
             file_path = os.path.join(transform_dir, f"{name}.parquet")
             df_domain.to_parquet(file_path, index=False)
-
-            put_df_s3(
-                df_domain,
-                f"transform/{datetime.date.today()}/{name}.parquet",
-                'parquet'
-            )
 
         logging.info("Transformações concluídas com sucesso.")
         return dict_df_domains

@@ -29,7 +29,7 @@ def extract_data() -> str:
             zip_ref.extractall(raw_dir)
 
         # Lê o CSV extraído
-        csv_path = os.path.join(raw_dir, "animal-data.csv")
+        csv_path = os.path.join(raw_dir, "animal-data-1.csv")
 
         logging.info("Extração concluída com sucesso.")
         return csv_path
